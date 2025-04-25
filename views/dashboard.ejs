@@ -1,0 +1,82 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DLink</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<%- include('partials/header') %>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<!-- Main container -->
+<div class="container-fluid" style="background-color: #f7f9fc; height: 100vh;">
+    <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-lg-8 col-md-10 col-12">
+            <div class="card shadow-lg p-4"> 
+                <!-- Dashboard Form -->
+                <div class="mt-4">
+                    <h2 class="text-center mb-4">Your Dashboard</h2>
+                    <form action="/shorten" method="POST" class="d-flex justify-content-center">
+    <div style="display: flex; flex-direction: column;">
+    <div>
+         <input type="url" name="originalUrl" id="originalUrl" placeholder="Enter URL to shorten" class="form-control me-2" style="max-width: 346px; height: 36px; margin: 15px; margin-left: 0;" required>
+    </div>
+    <div style="display: flex; flex-direction: row;">
+        <input type="text" name="keyword1" id="keyword1" placeholder="Keyword 1" class="form-control me-2" style="width: 110px; font-size: 14px; margin-bottom: 0;" required>
+        <input type="text" name="keyword2" id="keyword2" placeholder="Keyword 2" class="form-control me-2" style="width: 110px; font-size: 14px; margin-bottom: 0;" required>
+        <input type="text" name="keyword3" id="keyword3" placeholder="Keyword 3" class="form-control me-2" style="width: 110px; font-size: 14px; margin-bottom: 0;" required>
+    </div>
+    <div style="display: flex; flex-direction: row;">
+    <label for="category" style="margin: 15px; margin-left: 0;">Choose ad category:</label>
+    <select name="category" id="category" style="height: 36px; word-wrap: normal; margin-top: 10px; border-radius: 7px; width: 187px;">
+        <option value="entertainment">Entertainment</option>
+        <option value="educational">Educational</option>
+        <option value="other">Other</option>
+    </select>
+    </div>
+    <button type="submit" class="btn btn-info" style="    height: 36px;
+    margin: 10px;
+    margin-left: 0;
+    width: 104px;
+    margin-right: 0;">Get Link</button>
+</div>
+</form>
+
+                </div>
+
+                <!-- Shortened URLs Table or Message -->
+                <div class="mt-5">
+                    <% if (urls.length > 0) { %>
+                    <h3 class="text-center">Your Shortened URLs:</h3>
+                    <div style="max-height: 400px; overflow-y: auto; box-shadow: var(--bs-box-shadow-lg) !important;">
+                        <table class="table table-hover table-striped mt-4">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Original URL</th>
+                                    <th>Short URL</th>
+                                    <th>Clicks</th>
+                                    <th>Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% urls.forEach(url => { %>
+                                <tr>
+                                    <td><a style="text-decoration: none; " href="<%= url.originalUrl %>" target="_blank"  ><%= url.originalUrl %></a></td>
+                                    <td><a style="text-decoration: none; " href="/s/<%= url.shortUrl %>/1">http://localhost:3000/s/<%= url.shortUrl %></a></td>
+                                    <td style="text-align: center;"><%= url.clicks %></td>
+                                    <td><%= url.createdAt.toDateString() %></td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <% } else { %>
+                    <h3 class="text-center text-muted">No links are there...</h3>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

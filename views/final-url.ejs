@@ -1,0 +1,14 @@
+<!-- views/final.ejs -->
+<%- include('partials/header') %>
+
+<h2>Redirecting to Original URL...</h2>
+<p>If you are not redirected automatically, <a href="<%= finalUrl %>">click here</a>.</p>
+
+<script>
+    // Auto-redirect after 3 seconds
+    setTimeout(() => {
+        window.location.href = "<%= finalUrl %>";
+    }, 3000);
+</script>
+
+<%- include('partials/footer') %>

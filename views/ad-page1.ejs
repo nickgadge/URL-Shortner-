@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DLink || Enjoy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .ai-content-container {
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      width: 100%;
+      margin: 30px auto;
+      display: block; /* Main content is initially visible */
+    }
+
+    .ai-content {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+      text-align: justify; /* Center the text content */
+    }
+
+    .ad {
+      margin: 20px 0;
+      text-align: center; /* Center the ad image */
+    }
+
+    .ad img {
+      max-width: 100%;
+      height: 35vh;
+      border-radius: 5px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .next-btn-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none; /* Initially hidden, shown after delay */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    }
+
+    .modal-content {
+      margin: auto;
+      padding: 20px;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%); /* Vertically center the modal content */
+    }
+
+    .modal-content img {
+      max-width: 100%;
+      height: 46vh;
+      width: 82vh;
+      border-radius: 10px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Main Content, Initially Visible -->
+<div class="ai-content-container" id="mainContent">
+  <% if (aiResponse && aiResponse.parts && aiResponse.parts.length > 0) { %>
+    <% let lineCount = 0; %>
+    <% aiResponse.parts.forEach(function(part) { %>
+        <div class="ai-content"><%- part.html %></div>
+    <% }); %>
+<% } else { %>
+    <p>No AI response available.</p>
+<% } %>
+
+
+</div>
+
+
+<div class="ad">
+  <img src="<%= adImageUrl %>" alt="Ad">
+</div>
+
+<div class="next-btn-container">
+  <a href="/s/<%= shortUrl %>/<%= currentStep + 1 %>" class="btn">Next</a>
+</div>
+
+<!-- Modal with Image -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <img src="https://img.freepik.com/free-psd/back-school-template-design_23-2149943063.jpg" alt="Popup Image" />
+  </div>
+</div>
+
+<script>
+  // Function to close the modal
+  function closeModal() {
+    document.getElementById('modal').style.display = 'none'; // Hide the modal when close is clicked
+  }
+
+  // Show the modal after 5 seconds
+  setTimeout(() => {
+    document.getElementById('modal').style.display = 'block'; // Show the modal after delay
+  }, 2000); // 5 seconds delay
+</script>
+
+</body>
+</html>
